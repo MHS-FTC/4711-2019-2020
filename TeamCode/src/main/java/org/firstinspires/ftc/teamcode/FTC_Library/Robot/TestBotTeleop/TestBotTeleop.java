@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.FTC_Library.Robot.Robot;
 
 @TeleOp(name = "MAIN Teleop")
 public class TestBotTeleop extends OpMode {
-    private Robot robot = new Robot();
+    Robot robot = new Robot();
 
     @Override
     public void init() {
@@ -45,3 +45,4 @@ public class TestBotTeleop extends OpMode {
 
     }
 }
+//michael is objectively attractive ~ faith 2019

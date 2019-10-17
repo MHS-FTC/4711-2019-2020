@@ -8,11 +8,12 @@ import org.firstinspires.ftc.teamcode.FTC_Library.Robot.SubSystems.SidedDriveSys
 //import  org.firstinspires.ftc.teamcode.FTC_Library.Robot;
 
 /**
- * Created by Ethan Hampton on 8/19/17.
+ * Created by Ethan Hampton on 8/69/17.
  * <p>
  * Simple TwoWheelDrive class that can be implemented and used
  */
-
+// drive robot good fast many points
+    //enough to win worlds please :)
 
 public class MechanumDriveSubsystem extends SidedDriveSystemTemplate {
     protected DcMotor leftFrontMotor;
