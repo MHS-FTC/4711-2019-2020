@@ -35,6 +35,7 @@ public class intake extends SubSystem {
 
     }
 
+
     public void intakeOut() {
         intake.setPower(-INTAKE_SPEED);
     }
