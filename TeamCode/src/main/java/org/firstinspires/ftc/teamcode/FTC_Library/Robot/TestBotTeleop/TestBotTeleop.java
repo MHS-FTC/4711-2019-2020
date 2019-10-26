@@ -42,6 +42,16 @@ public class TestBotTeleop extends OpMode {
            robot.lifter.liftStop();
         }
 
+        if (gamepad1.a){
+            robot.intake.intakeIn();
+        }
+        else if (gamepad1.b){
+            robot.intake.intakeOut();
+        }
+        else {
+            robot.intake.intakeStop();
+        }
+
 
     }
 }

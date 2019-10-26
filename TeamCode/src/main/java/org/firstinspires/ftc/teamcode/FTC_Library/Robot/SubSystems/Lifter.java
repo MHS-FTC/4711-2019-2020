@@ -34,6 +34,7 @@ public class Lifter extends SubSystem {
 
     public Lifter setDeviceNames(String lift, String hand) {
         liftName = lift;
+        handName = hand;
         return this;
 
     }
