@@ -12,9 +12,11 @@ public class Lifter extends SubSystem {
 
     private String liftName;
     private String handName;
+    private String rotateName;
 
     private DcMotor lift;
     private Servo hand;
+    private Servo rotate;
 
     private final double LIFT_SPEED = 1;
 
@@ -28,13 +30,15 @@ public class Lifter extends SubSystem {
 
         hand = hardwareDevices.servo.get(handName);
 
+        rotate = hardwareDevices.servo.get(rotateName);
 
         return true;
     }
 
-    public Lifter setDeviceNames(String lift, String hand) {
+    public Lifter setDeviceNames(String lift, String hand, String rotate) {
         liftName = lift;
         handName = hand;
+        rotateName = rotate;
         return this;
 
     }
@@ -65,8 +69,25 @@ public class Lifter extends SubSystem {
 
     }
 
+    public void rotateOut() {
+
+        rotate.setPosition(1);
+    }
+
+    public void rotateIn() {
+
+        rotate.setPosition(0);
+    }
 
     public DcMotor getMotor() {
         return lift;
     }
+    public Servo getHand() {
+        return hand;
+    }
+
+    public Servo getRotate() {
+        return rotate;
+    }
 }
+

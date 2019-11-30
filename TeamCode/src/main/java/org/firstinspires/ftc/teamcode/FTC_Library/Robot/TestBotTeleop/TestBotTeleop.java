@@ -32,7 +32,14 @@ public class TestBotTeleop extends OpMode {
             robot.lifter.handDown();
         }
 
-       if (gamepad1.left_bumper){
+        if (gamepad1.dpad_right) {
+            robot.lifter.rotateOut();
+        }
+        else if(gamepad1.dpad_left){
+            robot.lifter.rotateIn();
+        }
+
+        if (gamepad1.left_bumper){
            robot.lifter.liftUp();
        }
        else if (gamepad1.right_bumper){
@@ -42,7 +49,7 @@ public class TestBotTeleop extends OpMode {
            robot.lifter.liftStop();
         }
 
-        if (gamepad1.a){
+  /*      if (gamepad1.a){
             robot.intake.intakeIn();
         }
         else if (gamepad1.b){
@@ -51,7 +58,7 @@ public class TestBotTeleop extends OpMode {
         else {
             robot.intake.intakeStop();
         }
-
+*/
 
     }
 }

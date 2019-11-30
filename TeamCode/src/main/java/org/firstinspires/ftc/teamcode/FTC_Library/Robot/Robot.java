@@ -10,10 +10,10 @@ import org.firstinspires.ftc.teamcode.FTC_Library.Robot.SubSystems.intake;
 
 public class Robot extends RobotBase {
 
-    public intake intake = new intake().setDeviceNames("intake");
-    public Lifter lifter = new Lifter().setDeviceNames("lifter", "hand");
+ //   public intake intake = new intake().setDeviceNames("intake");
+    public Lifter lifter = new Lifter().setDeviceNames("lifter", "hand","rotate");
     public MechanumDriveSubsystem drive = new MechanumDriveSubsystem().setMotorNames("leftFront", "rightFront", "leftBack", "rightBack");
-  //  public ElementFling fling = null;//for programs
+
 
 
 
@@ -21,7 +21,7 @@ public class Robot extends RobotBase {
 
         addSubSystem(lifter);
         addSubSystem(drive);
-        addSubSystem(intake);
+      //  addSubSystem(intake);
     }
 
 }
