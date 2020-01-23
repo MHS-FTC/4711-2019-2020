@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 //import org.firstinspires.ftc.teamcode.FTC_Library.Robot.SubSystems.SubSystem;
 
-public class intake extends SubSystem {
+public class Intake extends SubSystem {
 
     private String intakeName;
 
@@ -22,7 +22,7 @@ public class intake extends SubSystem {
         return true;
     }
 
-    public intake setDeviceNames(String intake) {
+    public Intake setDeviceNames(String intake) {
         intakeName = intake;
 
         return this;

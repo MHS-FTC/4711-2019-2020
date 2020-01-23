@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.FTC_Library.Examples.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.FTC_Library.Autonomous.AutonomousBase;
 import org.firstinspires.ftc.teamcode.FTC_Library.Autonomous.Modules.CallFunction;
@@ -14,8 +13,8 @@ import org.firstinspires.ftc.teamcode.FTC_Library.Examples.Robot.SimpleRobot;
  * Created by Ethan Hampton on 8/19/17.
  * Example Autonomous
  */
-@Disabled
-@Autonomous(name = "Simple Autonomous")
+
+@Autonomous(name = "Test Autonomous")
 public class SimpleAutonomous extends AutonomousBase {
     private SimpleRobot bot = new SimpleRobot();
     private final Module[][] steps = new Module[][]{
