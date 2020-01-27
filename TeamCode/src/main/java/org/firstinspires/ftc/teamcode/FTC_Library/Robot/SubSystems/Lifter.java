@@ -20,17 +20,13 @@ public class Lifter extends SubSystem {
     private DcMotor rotate;
     private Servo trayMover;
 
+    private long stoppedTime;
+    private final int STOP_WAIT = 200;//wait before engaging positioning
+
 
     private final double LIFT_SPEED = 1;
 
-    private final int TARGETING_DEADZONE = 1;
-    private final int TARGET_DIFF = 55;//change target by this amount each time if not on target
-    private final int MANUAL_TARGET_DIFF = TARGET_DIFF - 3;
 
-    private double ARM_UP_TARGETING_DIFFERENCE = 2;// this is in motor rotations and multiplied in 'init' by encoder ticks per rev
-    private double armTargetPosition = 0;
-    private int armDownLocation = 0;
-    private int armUpLocation = 0;
 
 
 
@@ -38,7 +34,7 @@ public class Lifter extends SubSystem {
     @Override
     public boolean init(HardwareMap hardwareDevices) {
 
-        lift = hardwareDevices.dcMotor.get(liftName);
+
 
         hand = hardwareDevices.servo.get(handName);
 
@@ -46,8 +42,15 @@ public class Lifter extends SubSystem {
 
         trayMover = hardwareDevices.servo.get(trayMoverName);
 
-        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        lift = hardwareDevices.dcMotor.get(liftName);
+
+       // lift.setDirection(DcMotorSimple.Direction.REVERSE);
+
+       lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        lift.setTargetPosition(0);
+       lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+       // lift.setPower(0.1);//this should be enough power to keep motor at the correct position
 
         return true;
     }
@@ -63,26 +66,31 @@ public class Lifter extends SubSystem {
 
     public void liftUp() {
 
-            armTargetPosition = lift.getCurrentPosition();
-            armTargetPosition += 1;
-            lift.setPower(0.5);
-            lift.setTargetPosition((int) armTargetPosition);
+        lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        lift.setPower(LIFT_SPEED);
 
 
     }
 
     public void liftDown() {
 
-        armTargetPosition = lift.getCurrentPosition();
-        armTargetPosition -= 1;
-        lift.setPower(-0.5);
-        lift.setTargetPosition((int) armTargetPosition);
+        lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        lift.setPower(-LIFT_SPEED);
     }
 
     //kind of an artificial stop designed to work for hanging
     public void liftStop() {
-        lift.setTargetPosition(lift.getCurrentPosition());
-        lift.setPower(0);
+        if (lift.getPower() != 0.1 && lift.getPower() != 0) {
+            lift.setPower(0);
+            stoppedTime = System.currentTimeMillis();
+        }
+        if (stoppedTime + STOP_WAIT < System.currentTimeMillis()) {//if has stopped
+
+            lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            lift.setTargetPosition(lift.getCurrentPosition());
+
+            lift.setPower(0.1);//this should be enough power to keep motor at the correct position
+        }
     }
     public void handUp() {
 
