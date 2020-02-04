@@ -32,21 +32,34 @@ public class TestBotTeleop extends OpMode {
             robot.lifter.handDown();
         }
 
-        if (gamepad2.a) {
+        if (gamepad1.dpad_down) { // servo down
             robot.lifter.trayGrab();
         }
-        else if(gamepad2.b){
+        else if(gamepad1.dpad_up){ //servos up
             robot.lifter.trayRealese();
         }
 
+        if (gamepad1.dpad_right) {
+            robot.lassieBoy.lassoUp();
+        }
+        else if(gamepad1.dpad_left){
+            robot.lassieBoy.lassoDown();
+        }
+        if (gamepad1.x) {
+            robot.lassieBoy.blockGrab();
+        }
+        else if(gamepad1.y){
+            robot.lassieBoy.blockRealese();
+        }
+
         if (gamepad2.dpad_right) {
-            robot.lifter.rotateOut();
+            robot.extender.rotateOut();
         }
         else if(gamepad2.dpad_left){
-            robot.lifter.rotateIn();
+            robot.extender.rotateIn();
         }
        else{
-           robot.lifter.rotateStop();
+           robot.extender.rotateStop();
         }
 
         if (gamepad1.left_bumper){
