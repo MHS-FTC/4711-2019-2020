@@ -14,10 +14,12 @@ public class Lifter extends SubSystem {
     private String trayMover1Name;
     private String trayMover2Name;
 
-    private double rotatePos = 0;
+    private String capName;
 
     private DcMotor lift;
     private Servo hand;
+
+    private Servo cap;
 
     private Servo trayMover1;
     private Servo trayMover2;
@@ -41,14 +43,15 @@ public class Lifter extends SubSystem {
 
         trayMover1 = hardwareDevices.servo.get(trayMover1Name);
         trayMover2 = hardwareDevices.servo.get(trayMover2Name);
+        cap = hardwareDevices.servo.get(capName);
 
         lift = hardwareDevices.dcMotor.get(liftName);
 
        // lift.setDirection(DcMotorSimple.Direction.REVERSE);
 
-       // lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        lift.setTargetPosition(0);
-        //lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+       lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        lift.setTargetPosition(1);
+        lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         lift.setPower(0.1);//this should be enough power to keep motor at the correct position
 
         // lift.setPower(0.1);//this should be enough power to keep motor at the correct position
@@ -56,9 +59,10 @@ public class Lifter extends SubSystem {
         return true;
     }
 
-    public Lifter setDeviceNames(String lift, String hand, String trayMover1, String trayMover2) {
+    public Lifter setDeviceNames(String lift, String hand, String trayMover1, String trayMover2, String cap) {
         liftName = lift;
         handName = hand;
+        capName = cap;
        // rotateName = rotate;
         trayMover1Name = trayMover1;
         trayMover2Name = trayMover2;
@@ -68,7 +72,7 @@ public class Lifter extends SubSystem {
 
     public void liftUp() {
 
-       // lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+       lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         lift.setPower(LIFT_SPEED);
 
 
@@ -76,8 +80,11 @@ public class Lifter extends SubSystem {
 
     public void liftDown() {
 
-       // lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         lift.setPower(-LIFT_SPEED);
+       /* if(lift.getCurrentPosition() <= 1 ){
+            liftStop();
+        } */
     }
 
     //kind of an artificial stop designed to work for hanging
@@ -87,21 +94,22 @@ public class Lifter extends SubSystem {
             stoppedTime = System.currentTimeMillis();
         }
         if (stoppedTime + STOP_WAIT < System.currentTimeMillis()) {//if has stopped
-            lift.setTargetPosition(lift.getCurrentPosition());
             lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            lift.setTargetPosition(lift.getCurrentPosition());
 
-            lift.setPower(0.1);//this should be enough power to keep motor at the correct position
+
+            lift.setPower(-0.1);//this should be enough power to keep motor at the correct position
         }
     }
     public void handUp() {
 
-        hand.setPosition(rotatePos);
-        rotatePos += 0.05;
+        hand.setPosition(1);
+
     }
     public void handDown() {
 
-        hand.setPosition(rotatePos);
-        rotatePos -= 0.05;
+        hand.setPosition(0);
+
     }
 
     public void trayGrab() {
@@ -112,9 +120,17 @@ public class Lifter extends SubSystem {
     }
     public void trayRealese() {
 
-        trayMover1.setPosition(1);
-        trayMover2.setPosition(0);
+        trayMover1.setPosition(.9);
+        trayMover2.setPosition(.1);
 
+    }
+    public void capIn(){
+
+        cap.setPosition(1);
+    }
+
+    public void capOut(){
+        cap.setPosition(0.45);
     }
 
     public DcMotor getMotor() {
